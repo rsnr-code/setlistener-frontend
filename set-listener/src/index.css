@@ -8,3 +8,22 @@ body {
     margin-right: 10px;
 }
 
+#title {
+    font-size: 9vw;
+    
+}
+
+@media screen and (min-width: 1200px) {
+    #title {
+       font-size: 5vw;
+    }
+  }
+
+  
+
+  @media screen and (min-width: 350px) {
+    .navbar-toggler {
+       width: 20px;
+       margin-right: 15px;
+    }
+  }
