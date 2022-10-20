@@ -2,17 +2,19 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import ArtistInfo from "./ArtistInfo";
 
+import PlaylistButton from "./PlaylistButton";
+
 const Main = () => {
   return (
-    <div>
+    <div className="main">
       <section
-        class="text-light p-5 text-center"
+        className="text-light p-5 text-center "
         style={{ backgroundColor: "#82bf00" }}
       >
-        <div class="container">
-          <div class="align-items-center justify-content-around text-center" >
+        <div className="container" style={{height: "15rem"}}>
+          <div className="text-center mt-3" >
             <h1 id="title">The Set Listener</h1>
-            <p class="lead my-3 mb-4">
+            <p className="lead my-3 mb-4">
               Create a Spotify playlist for your favorite artist's most recent
               show
             </p>
@@ -37,7 +39,7 @@ const Main = () => {
       </section>
 
 <ArtistInfo />
-
+<PlaylistButton />
 
     </div>
   );

@@ -2,33 +2,33 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <div className="header">
-      <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3">
-        <div class="container">
+    <div>
+      <nav className="navbar navbar-expand-lg bg-dark navbar-dark py-3">
+        <div className="container">
 
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center titleLogo">
             <img src="spotify-logo.png" alt="logo" className="logo img-fluid" />
             <Link to={'/'} style={{textDecoration: "none"}}>
-            <a className="navbar-brand">
+            <p className="navbar-brand" style={{marginTop: "10px"}}>
               T H E &nbsp; S E T &nbsp; L I S T E N E R
-            </a>
+            </p>
             </Link>
           </div>
 
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navmenu"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div class="collapse navbar-collapse" id="navmenu">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
+          <div className="collapse navbar-collapse" id="navmenu">
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item">
                 <Link to={'/about'} style={{textDecoration: "none"}}>
-                   <p class="nav-link">
+                   <p className="nav-link">
                   About
                 </p> 
                 </Link>
