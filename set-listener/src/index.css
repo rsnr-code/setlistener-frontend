@@ -13,16 +13,9 @@ html {
 }
 
 #title {
-    font-size: 9vw;
+    font-size: 7vw;
     
 }
-
-@media screen and (min-width: 1200px) {
-    #title {
-       font-size: 10vw;
-    }
-  }
-
 
   @media screen and (max-width: 400px) {
     .navbar-toggler {
@@ -30,7 +23,7 @@ html {
        margin-right: 5px;
     }
    .text {
-    font-size: 15px;
+    font-size: 15px;  
    }
   }
 
@@ -40,3 +33,7 @@ html {
     
   }
 
+.search {
+  
+  background-color: #82bf00;
+}
