@@ -1,10 +1,11 @@
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 import About from "./components/About";
 import Main from "./components/Main";
 import { useEffect, useState } from 'react'
+import { Button } from "bootstrap";
 
 function App() {
   const CLIENT_ID = "345e769ef981466e9ee4f8588d86175c"
@@ -38,12 +39,49 @@ const logout = () => {
   return (
     <Router>
       <div className="App">
-        <Header />
+      <nav className="navbar navbar-expand-lg bg-dark navbar-dark py-3">
+        <div className="container">
+
+          <div className="d-flex align-items-center">
+            <img src="spotify-logo.png" alt="logo" className="logo img-fluid" />
+            <Link to={'/'} style={{textDecoration: "none"}}>
+            <p className="navbar-brand" style={{marginTop: "16px"}}>
+              T H E &nbsp; S E T &nbsp; L I S T E N E R
+            </p>
+            </Link>
+          </div>
+
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navmenu"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+{token ? 
+<div className="collapse navbar-collapse" id="navmenu">
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item">
+              <button onClick={logout}>Logout</button>
+                
+              </li>
+            </ul>
+          </div>
+          : <div></div>
+}
+          
+          
+        </div>
+      </nav>
 
         {!token ?
                     <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
                         to Spotify</a>
-                    : <button onClick={logout}>Logout</button>}
+                    : <div></div>
+                    // <button onClick={logout}>Logout</button>
+                    }
 
 
 {token ?
