@@ -6,6 +6,13 @@ html {
   background-color: #f2f2f3;
 }
 
+.button {
+  border: none;
+  padding: 0;
+  background: none;
+
+}
+
 .logo{
     width: 40px;
     height: auto;

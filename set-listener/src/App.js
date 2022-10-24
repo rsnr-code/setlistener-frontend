@@ -1,11 +1,10 @@
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Header from "./components/Header";
 import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 import About from "./components/About";
 import Main from "./components/Main";
 import { useEffect, useState } from 'react'
-import { Button } from "bootstrap";
+
 
 function App() {
   const CLIENT_ID = "345e769ef981466e9ee4f8588d86175c"
@@ -51,7 +50,11 @@ const logout = () => {
             </Link>
           </div>
 
-          <button
+         
+
+{token ? 
+<div>
+  <button
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
@@ -60,14 +63,14 @@ const logout = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-{token ? 
 <div className="collapse navbar-collapse" id="navmenu">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-              <button onClick={logout}>Logout</button>
+              <button onClick={logout} className="button navbar-brand">Logout</button>
                 
               </li>
             </ul>
+          </div>
           </div>
           : <div></div>
 }
