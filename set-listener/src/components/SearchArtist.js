@@ -17,12 +17,58 @@ const SearchArtist = () => {
   }
 
   axios.request(options).then((response) => {
-    let setlistSongs = response.data.setlist[1].sets.set[0].song
+
+    let setlistSongs 
+
+    if(response.data.setlist[0].sets.set[0].song.length > 4 &&  response.data.setlist[0].sets.set.length !== 0){
+      setlistSongs = response.data.setlist[0].sets.set[0].song
+    }else if(response.data.setlist[1].sets.set[0].song.length > 4 &&  response.data.setlist[1].sets.set.length !== 0){
+      setlistSongs = response.data.setlist[1].sets.set[0].song
+    }else if(response.data.setlist[2].sets.set.length !== 0 && response.data.setlist[2].sets.set[0].song.length > 4 ){
+      setlistSongs = response.data.setlist[2].sets.set[0].song
+    }else if(response.data.setlist[3].sets.set.length !== 0 && response.data.setlist[3].sets.set[0].song.length > 4 ){
+      setlistSongs = response.data.setlist[3].sets.set[0].song
+    }else if(response.data.setlist[4].sets.set.length !== 0 && response.data.setlist[4].sets.set[0].song.length > 4){
+      setlistSongs = response.data.setlist[4].sets.set[0].song
+    }else if(response.data.setlist[5].sets.set.length !== 0 && response.data.setlist[5].sets.set[0].song.length > 4){
+      setlistSongs = response.data.setlist[5].sets.set[0].song
+    }else if(response.data.setlist[6].sets.set.length !== 0 && response.data.setlist[6].sets.set[0].song.length > 4){
+      setlistSongs = response.data.setlist[6].sets.set[0].song
+    }else if(response.data.setlist[7].sets.set.length !== 0 && response.data.setlist[7].sets.set[0].song.length > 4){
+      setlistSongs = response.data.setlist[7].sets.set[0].song
+    }else if(response.data.setlist[8].sets.set.length !== 0 && response.data.setlist[8].sets.set[0].song.length > 4){
+      setlistSongs = response.data.setlist[8].sets.set[0].song
+    }else if(response.data.setlist[9].sets.set.length !== 0 && response.data.setlist[9].sets.set[0].song.length > 4){
+      setlistSongs = response.data.setlist[9].sets.set[0].song
+    }
+
+    console.log(setlistSongs)
+
+
+
+
+    // let setlistSongs = response.data.setlist[1].sets.set[0].song
+
+    // let setlistEncore = response.data.setlist[1].sets.set[1].song
+
+    // console.log(setlistEncore)
+
+    // let setlistData = response.data.setlist[1].sets.set
+
+    // console.log(setlistData)
+
+ 
+
+
+    console.log(setlistSongs.length)
+    
     setInitialState(JSON.stringify(setlistSongs));
 
     let songsArr = []
 
     setlistSongs.forEach(element => songsArr.push(element.name))
+
+    // setlistEncore.forEach(element => songsArr.push(element.name))
 
     console.log(songsArr)
 
