@@ -6,10 +6,10 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg bg-dark navbar-dark py-3">
         <div className="container">
 
-          <div className="d-flex align-items-center titleLogo">
+          <div className="d-flex align-items-center">
             <img src="spotify-logo.png" alt="logo" className="logo img-fluid" />
             <Link to={'/'} style={{textDecoration: "none"}}>
-            <p className="navbar-brand" style={{marginTop: "10px"}}>
+            <p className="navbar-brand" style={{marginTop: "16px"}}>
               T H E &nbsp; S E T &nbsp; L I S T E N E R
             </p>
             </Link>

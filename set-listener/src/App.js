@@ -47,13 +47,13 @@ const logout = () => {
 
 
 {token ?
-                <div className="content">
+                   <div className="content">
           <Routes>
             <Route path="/" element={<Main />} />
 
             <Route path="/about" element={<About />} />
           </Routes>
-        </div>    
+        </div> 
 
                     : <h2>Please login</h2>
                 }
