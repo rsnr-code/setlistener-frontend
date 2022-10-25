@@ -1,6 +1,7 @@
 import PlaylistButton from "./PlaylistButton";
 import { useState } from "react";
 import axios from "axios";
+import { BiSearch} from "react-icons/bi";
 
 
 const Main = () => {
@@ -8,6 +9,23 @@ const Main = () => {
   //Search Artist Code:
   const [searchKey, setSearchKey] = useState("");
   const [initialState, setInitialState] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userImage, setUserImage] = useState("");
+
+  let token = window.localStorage.getItem("token");
+  
+  const getUserName = async (e) => {
+   
+    const data = await axios.get("https://api.spotify.com/v1/me", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    setUserImage(data.data.images[0].url)
+    setUserName(data.data.display_name)
+  }
+
+  getUserName()
 
   const searchArtist = (e) => {
     e.preventDefault();
@@ -145,10 +163,9 @@ const Main = () => {
           setlistEncore.forEach((element) => songsArr.push(element.name));
         }
 
-        console.log(venueName);
+      
         console.log(songsArr);
-        console.log(cityName)
-        console.log(eventDate)
+      
 
         setInitialState(`${artistName} at ${venueName} (${cityName}) on ${eventDate}`);
       })
@@ -174,9 +191,7 @@ const Main = () => {
 
 <div className="search">
       <section
-        className="text-light p-5 text-center "
-        style={{ backgroundColor: "#82bf00" }}
-      >
+        className="text-light p-5 text-center search">
         <div className="container" style={{ height: "15rem" }}>
           <div className="text-center mt-3">
             <h1 id="title">The Set Listener</h1>
@@ -185,7 +200,7 @@ const Main = () => {
               show
             </p>
 
-            <div className="d-flex justify-content-center ">
+            <div className="d-flex justify-content-center" >
               <form onSubmit={searchArtist}>
                 <input
                   name="artist"
@@ -194,22 +209,31 @@ const Main = () => {
                   type="text"
                   onChange={(e) => setSearchKey(e.target.value)}
                 />
-                <button type={"submit"}>Search</button>
+                <button type={"submit"} style={{fontSize: "1.1rem"}} > <BiSearch />  </button>
               </form>
             </div>
           </div>
         </div>
       </section>
-    </div>
 
-    <section className="p-5 text-center" style={{ backgroundColor: "#f2f2f3" }}>
-      <div style={{ color: "#82bf00" }}>{initialState}</div>
+      
+    </div>
+{initialState ? <section className="p-3 text-center" style={{ backgroundColor: "#f2f2f3", fontSize: "1.3rem", fontWeight: "bold"}}>
+      <div style={{ color: "#0a6312" }}>{initialState}</div>
+     
+    </section> : <section className="p-3 text-center" style={{ backgroundColor: "#f2f2f3", fontSize: "1.3rem", fontWeight: "bold"}}>
+      <div style={{ color: "#0a6312" }}>Hiya <img className="userImage" src={userImage} alt="userImage"/>   {userName}! 
+      <p></p>
+      <p>Go ahead and type in your favorite artist. </p></div>
      
     </section>
 
+}
+    
 
 
-{initialState ? <PlaylistButton /> : <div></div>}
+
+{initialState ? <PlaylistButton /> : <div style={{backgroundColor: "#0a6312"}}></div>}
 
     </div>
   );
