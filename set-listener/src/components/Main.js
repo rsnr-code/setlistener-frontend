@@ -1,10 +1,19 @@
 import PlaylistButton from "./PlaylistButton";
 import { useState } from "react";
 import axios from "axios";
-import { BiSearch} from "react-icons/bi";
-
+import { BiSearch } from "react-icons/bi";
+import SpotifyWebApi from "spotify-web-api-node";
 
 const Main = () => {
+  let token = window.localStorage.getItem("token");
+
+  const spotifyApi = new SpotifyWebApi({
+    clientId: "345e769ef981466e9ee4f8588d86175c",
+    clientSecret: "fe4e72eed7c64dc19a169126317157fe",
+    redirectUri: "http://localhost:3000",
+  });
+
+  spotifyApi.setAccessToken(token);
 
   //Search Artist Code:
   const [searchKey, setSearchKey] = useState("");
@@ -12,20 +21,17 @@ const Main = () => {
   const [userName, setUserName] = useState("");
   const [userImage, setUserImage] = useState("");
 
-  let token = window.localStorage.getItem("token");
-  
   const getUserName = async (e) => {
-   
     const data = await axios.get("https://api.spotify.com/v1/me", {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    setUserImage(data.data.images[0].url)
-    setUserName(data.data.display_name)
-  }
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setUserImage(data.data.images[0].url);
+    setUserName(data.data.display_name);
+  };
 
-  getUserName()
+  getUserName();
 
   const searchArtist = (e) => {
     e.preventDefault();
@@ -163,11 +169,11 @@ const Main = () => {
           setlistEncore.forEach((element) => songsArr.push(element.name));
         }
 
-      
         console.log(songsArr);
-      
 
-        setInitialState(`${artistName} at ${venueName} (${cityName}) on ${eventDate}`);
+        setInitialState(
+          `${artistName} at ${venueName} (${cityName}) on ${eventDate}`
+        );
       })
       .catch((err) => {
         console.error(err);
@@ -182,59 +188,107 @@ const Main = () => {
     // .then(data => console.log(JSON.stringify(data)))
   };
 
+  const createPlaylist = async (e) => {
+    e.preventDefault();
+    let playlistId;
 
+    await spotifyApi
+      .createPlaylist("My playlist", {
+        description: "My description",
+        public: false,
+      })
+      .then(
+        function (data) {
+          playlistId = data.body.id;
+          console.log("newToken =", data.body.id);
+          console.log("playlistId =", playlistId);
+          console.log("Created playlist!");
+        },
+        function (err) {
+          console.log("Something went wrong!", err);
+        }
+      );
+
+    await spotifyApi
+      .addTracksToPlaylist(playlistId, ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh"])
+      .then(
+        function (data) {
+          console.log(playlistId);
+          console.log("Added tracks to playlist!");
+        },
+        function (err) {
+          console.log("Something went wrong!", err);
+        }
+      );
+  };
 
   return (
     <div className="main">
+      {/* Search Artist:*/}
 
-{/* Search Artist:*/}
+      <div className="search">
+        <section className="text-light p-5 text-center search">
+          <div className="container" style={{ height: "15rem" }}>
+            <div className="text-center mt-3">
+              <h1 id="title">The Set Listener</h1>
+              <p className=" my-3 mb-4">
+                Create a Spotify playlist for your favorite artist's most recent
+                show
+              </p>
 
-<div className="search">
-      <section
-        className="text-light p-5 text-center search">
-        <div className="container" style={{ height: "15rem" }}>
-          <div className="text-center mt-3">
-            <h1 id="title">The Set Listener</h1>
-            <p className=" my-3 mb-4">
-              Create a Spotify playlist for your favorite artist's most recent
-              show
-            </p>
-
-            <div className="d-flex justify-content-center" >
-              <form onSubmit={searchArtist}>
-                <input
-                  name="artist"
-                  id="artist"
-                  value={searchKey}
-                  type="text"
-                  onChange={(e) => setSearchKey(e.target.value)}
-                />
-                <button type={"submit"} style={{fontSize: "1.1rem"}} > <BiSearch />  </button>
-              </form>
+              <div className="d-flex justify-content-center">
+                <form onSubmit={searchArtist}>
+                  <input
+                    name="artist"
+                    id="artist"
+                    value={searchKey}
+                    type="text"
+                    onChange={(e) => setSearchKey(e.target.value)}
+                  />
+                  <button type={"submit"} style={{ fontSize: "1.1rem" }}>
+                    {" "}
+                    <BiSearch />{" "}
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
+      {initialState ? (
+        <section
+          className="p-3 text-center"
+          style={{
+            backgroundColor: "#f2f2f3",
+            fontSize: "1.3rem",
+            fontWeight: "bold",
+          }}
+        >
+          <div style={{ color: "#0a6312" }}>{initialState}</div>
+        </section>
+      ) : (
+        <section
+          className="p-3 text-center"
+          style={{
+            backgroundColor: "#f2f2f3",
+            fontSize: "1.3rem",
+            fontWeight: "bold",
+          }}
+        >
+          <div style={{ color: "#0a6312" }}>
+            Hiya <img className="userImage" src={userImage} alt="userImage" />{" "}
+            {userName}!<p></p>
+            <p>Go ahead and type in your favorite artist. </p>
+          </div>
+          <button onClick={createPlaylist}>Click Me</button>
+        </section>
+      )}
 
-      
-    </div>
-{initialState ? <section className="p-3 text-center" style={{ backgroundColor: "#f2f2f3", fontSize: "1.3rem", fontWeight: "bold"}}>
-      <div style={{ color: "#0a6312" }}>{initialState}</div>
-     
-    </section> : <section className="p-3 text-center" style={{ backgroundColor: "#f2f2f3", fontSize: "1.3rem", fontWeight: "bold"}}>
-      <div style={{ color: "#0a6312" }}>Hiya <img className="userImage" src={userImage} alt="userImage"/>   {userName}! 
-      <p></p>
-      <p>Go ahead and type in your favorite artist. </p></div>
-     
-    </section>
-
-}
-    
-
-
-
-{initialState ? <PlaylistButton /> : <div style={{backgroundColor: "#0a6312"}}></div>}
-
+      {initialState ? (
+        <PlaylistButton />
+      ) : (
+        <div style={{ backgroundColor: "#0a6312" }}></div>
+      )}
     </div>
   );
 };

@@ -10,6 +10,8 @@ function App() {
   const REDIRECT_URI = "http://localhost:3000";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
+  const SCOPE = "playlist-modify-private"
+
 
   const [token, setToken] = useState("");
 
@@ -87,7 +89,7 @@ function App() {
           <div className="container" style={{ height: "30rem" }}>
             <div className="text-center mt-3">
             <a
-              href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+              href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}
               className="loginText"
             >
               Login to Spotify
