@@ -61,15 +61,33 @@ background: linear-gradient(0deg, rgba(10,99,18,1) 0%, rgba(33,37,41,1) 67%);
 background: linear-gradient(0deg, rgba(10,99,18,1) 0%, rgba(33,37,41,1) 67%);
 }
 
-.loginPage {
-  background: rgb(10,99,18);
-background: linear-gradient(0deg, rgba(10,99,18,1) 0%, rgba(33,37,41,1) 67%);
-height: 85vh;
-}
+
 
 .loginText {
   color: white;
-  text-align: center;
   text-decoration: none;
-  font-size: 2rem;
+  font-size: 1.5rem;
+}
+
+.artistInfo {
+  background: rgb(10,99,18);
+  background: linear-gradient(180deg, rgba(10,99,18,1) 0%, rgba(21,190,36,0.11233665829613093) 100%);
+}
+
+.loginButton {
+  
+    background-color: #67b02e;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    opacity: 80%;
+    padding: 10px;
+    
+    white-space: nowrap;
+    transition: 0.3s;
+    font-size: 14px;
+
+  
+  
+  
 }

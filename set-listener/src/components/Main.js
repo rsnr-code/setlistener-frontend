@@ -1,8 +1,10 @@
 import PlaylistButton from "./PlaylistButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { BiSearch } from "react-icons/bi";
 import SpotifyWebApi from "spotify-web-api-node";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 const Main = () => {
   let token = window.localStorage.getItem("token");
@@ -20,6 +22,10 @@ const Main = () => {
   const [initialState, setInitialState] = useState("");
   const [userName, setUserName] = useState("");
   const [userImage, setUserImage] = useState("");
+  const [songArr, setSongArr] = useState("");
+  const [trackIdArr, setTrackIdArr] = useState("");
+
+  let songs = [['track:Let it Happen artist:Tame Impala'], ['track: After Hours artist: The Weeknd']]
 
   const getUserName = async (e) => {
     const data = await axios.get("https://api.spotify.com/v1/me", {
@@ -30,10 +36,24 @@ const Main = () => {
     setUserImage(data.data.images[0].url);
     setUserName(data.data.display_name);
   };
-
+  // 'track:Let it Happen artist:Tame Impala'
   getUserName();
 
-  const searchArtist = (e) => {
+  // const getTrackId = async (track) => {
+  //   await spotifyApi.searchTracks(track)
+  //   .then(function(data) {
+  //     console.log(data.body.tracks.items[0].uri);
+  //   }, function(err) {
+  //     console.log('Something went wrong!', err);
+  //   });
+  // }
+
+  // songs.forEach(getTrackId)
+
+
+
+
+  const searchArtist = async (e) => {
     e.preventDefault();
 
     const options = {
@@ -42,7 +62,7 @@ const Main = () => {
       params: { artistName: searchKey },
     };
 
-    axios
+   await axios
       .request(options)
       .then((response) => {
         let artistName = response.data.setlist[0].artist.name;
@@ -174,10 +194,28 @@ const Main = () => {
         setInitialState(
           `${artistName} at ${venueName} (${cityName}) on ${eventDate}`
         );
+
+          let trackArtistArr = []
+
+          if (songsArr) {
+            songsArr.forEach( (element) => {
+              trackArtistArr.push(
+                [`track:${element} artist:${artistName}`]
+              );
+            })}
+
+          setSongArr(trackArtistArr);
+          
+
+        // 'track:Let it Happen artist:Tame Impala'
+  
+
+      
       })
       .catch((err) => {
         console.error(err);
       });
+     
 
     //This method wouldn't send req.query
     // fetch("http://localhost:5000/setlist", {
@@ -188,19 +226,64 @@ const Main = () => {
     // .then(data => console.log(JSON.stringify(data)))
   };
 
+  useEffect( () => {
+        let trackId = []
+
+        if(songArr){
+songArr.forEach(async (element) =>  {
+      
+        await spotifyApi.searchTracks(element)
+        .then(function(data) {
+          trackId.push(
+            data.body.tracks.items[0].uri
+          )
+        }, function(err) {
+          console.log('Something went wrong!', err);
+        })
+      
+      })
+      
+      setTrackIdArr(trackId)
+      console.log(trackId)
+        }
+      
+       
+  }, [songArr])
+
+
+
+
   const createPlaylist = async (e) => {
     e.preventDefault();
     let playlistId;
 
+    // let trackId = []
+      
+    // songArr.forEach(async (element) =>  {
+    
+    //   await spotifyApi.searchTracks(element)
+    //   .then(function(data) {
+    //     trackId.push(
+    //       data.body.tracks.items[0].uri
+    //     )
+    //   }, function(err) {
+    //     console.log('Something went wrong!', err);
+    //   })
+    
+    // })
+    
+    // setTrackIdArr(trackId)
+    // console.log(trackId)
+
     await spotifyApi
-      .createPlaylist("My playlist", {
+      .createPlaylist(`${searchKey} setlist`, {
         description: "My description",
         public: false,
       })
       .then(
         function (data) {
           playlistId = data.body.id;
-          console.log("newToken =", data.body.id);
+          console.log("newPlaylist=", data.body.id);
           console.log("playlistId =", playlistId);
           console.log("Created playlist!");
         },
@@ -209,8 +292,10 @@ const Main = () => {
         }
       );
 
+  
+      
     await spotifyApi
-      .addTracksToPlaylist(playlistId, ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh"])
+      .addTracksToPlaylist(playlistId, trackIdArr)
       .then(
         function (data) {
           console.log(playlistId);
@@ -221,6 +306,9 @@ const Main = () => {
         }
       );
   };
+
+
+
 
   return (
     <div className="main">
@@ -255,9 +343,10 @@ const Main = () => {
           </div>
         </section>
       </div>
+
       {initialState ? (
         <section
-          className="p-3 text-center"
+          className="p-3 text-center artistInfo"
           style={{
             backgroundColor: "#f2f2f3",
             fontSize: "1.3rem",
@@ -280,12 +369,23 @@ const Main = () => {
             {userName}!<p></p>
             <p>Go ahead and type in your favorite artist. </p>
           </div>
-          <button onClick={createPlaylist}>Click Me</button>
         </section>
       )}
 
       {initialState ? (
-        <PlaylistButton />
+        <section className="p-3 text-center playlistButtonSection" >
+        <Form>
+             <Button
+               type="submit"
+               className="mx-2 rounded btn playlistButton"
+               style={{ height: "40px"}}
+               onClick={createPlaylist}
+             >
+               <p className="text">SAVE THIS PLAYLIST TO SPOTIFY</p>
+               
+             </Button>
+           </Form>
+     </section>
       ) : (
         <div style={{ backgroundColor: "#0a6312" }}></div>
       )}
