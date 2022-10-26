@@ -51,6 +51,7 @@ html {
   }
 
 
+
   .playlistButtonSection {
     background-color: #f2f2f3;
     border-top: 2px solid rgb(208, 208, 208);
@@ -63,8 +64,8 @@ background: linear-gradient(0deg, rgba(10,99,18,1) 0%, rgba(33,37,41,1) 67%);
 
 
 .search {
-  background: rgb(10,99,18);
-background: linear-gradient(0deg, rgba(10,99,18,1) 0%, rgba(33,37,41,1) 67%);
+  background: rgb(14,136,25);
+  background: linear-gradient(0deg, rgba(14,136,25,0.5184991232821253) 0%, rgba(33,37,41,1) 92%);
 }
 
 
@@ -75,10 +76,7 @@ background: linear-gradient(0deg, rgba(10,99,18,1) 0%, rgba(33,37,41,1) 67%);
   font-size: 1.5rem;
 }
 
-.artistInfo {
-  background: rgb(10,99,18);
-  background: linear-gradient(180deg, rgba(10,99,18,1) 0%, rgba(21,190,36,0.11233665829613093) 100%);
-}
+
 
 .loginButton {
   

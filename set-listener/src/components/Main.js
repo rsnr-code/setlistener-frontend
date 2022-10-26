@@ -25,7 +25,6 @@ const Main = () => {
   const [songArr, setSongArr] = useState("");
   const [trackIdArr, setTrackIdArr] = useState("");
 
-  let songs = [['track:Let it Happen artist:Tame Impala'], ['track: After Hours artist: The Weeknd']]
 
   const getUserName = async (e) => {
     const data = await axios.get("https://api.spotify.com/v1/me", {
@@ -277,7 +276,7 @@ songArr.forEach(async (element) =>  {
 
     await spotifyApi
       .createPlaylist(`${searchKey} setlist`, {
-        description: "My description",
+        description: initialState,
         public: false,
       })
       .then(
@@ -364,10 +363,11 @@ songArr.forEach(async (element) =>  {
             fontWeight: "bold",
           }}
         >
-          <div style={{ color: "#0a6312" }}>
+          <div>
             Hiya <img className="userImage" src={userImage} alt="userImage" />{" "}
-            {userName}!<p></p>
+            {userName}! 
             <p>Go ahead and type in your favorite artist. </p>
+           
           </div>
         </section>
       )}
