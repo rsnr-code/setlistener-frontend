@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Link, } from "react-router-dom";
 import Main from "./components/Main";
 import { useEffect, useState } from "react";
-import { FaSpotify } from 'react-icons/fa'
 
 function App() {
   const CLIENT_ID = "345e769ef981466e9ee4f8588d86175c";
