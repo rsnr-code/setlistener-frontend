@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const CLIENT_ID = "345e769ef981466e9ee4f8588d86175c";
-  const REDIRECT_URI = "https://set-listener.herokuapp.com/";
+  const REDIRECT_URI = "https://setlistener.herokuapp.com/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
   const SCOPE = "playlist-modify-private"
