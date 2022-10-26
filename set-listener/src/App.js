@@ -88,16 +88,15 @@ function App() {
           className="d-flex text-center " style={{ height: "85vh", backgroundImage: "url(concert.jpg)", backgroundRepeat: "no-repeat"}}>
           <div className="container d-flex ">
             <div className="text-center mt-5 flex-grow-1">
-              <button style={{backgroundColor: "#67b02e"}} className="loginButton">
-              {" "}
-                    <FaSpotify style={{fontSize: "2.5rem", marginBottom: "13px"}} />{" "}
+             
+              
                 <a
               href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}
-              className="loginText" 
+              
             >
-              Login with Spotify
+             <img src="connectspotify.png" alt="connect" className="connectButton mt-5"/>
             </a>
-              </button>
+            
             
             </div>
             </div>

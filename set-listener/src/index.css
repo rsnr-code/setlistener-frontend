@@ -30,6 +30,10 @@ html {
   height: auto;
 }
 
+.connectButton {
+  width: 35%
+}
+
   @media screen and (max-width: 450px) {
     .navbar-toggler {
        width: 10px;
@@ -40,7 +44,9 @@ html {
    }
    .userImage{
     width: 10%;
-    
+   }
+   .connectButton {
+    width: 80%;
    }
   }
 
@@ -91,3 +97,4 @@ background: linear-gradient(0deg, rgba(10,99,18,1) 0%, rgba(33,37,41,1) 67%);
   
   
 }
+
