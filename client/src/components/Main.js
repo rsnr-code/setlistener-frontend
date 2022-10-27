@@ -1,11 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { BiSearch } from "react-icons/bi";
+import SpotifyWebApi from "spotify-web-api-node";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
-const SearchArtist = () => {
+const Main = () => {
   const [searchKey, setSearchKey] = useState("");
   const [initialState, setInitialState] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userImage, setUserImage] = useState("");
+  const [songArr, setSongArr] = useState("");
+  const [trackIdArr, setTrackIdArr] = useState("");
 
-  const searchArtist = (e) => {
+  // SpotifyWebApi instantiation
+  let token = window.localStorage.getItem("token");
+
+  const spotifyApi = new SpotifyWebApi({
+    clientId: "345e769ef981466e9ee4f8588d86175c",
+    clientSecret: "fe4e72eed7c64dc19a169126317157fe",
+    redirectUri: "http://localhost:3000",
+  });
+
+  spotifyApi.setAccessToken(token);
+
+  // Spotify username and user image
+  const getUserName = async (e) => {
+    const data = await axios.get("https://api.spotify.com/v1/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setUserImage(data.data.images[0].url);
+    setUserName(data.data.display_name);
+  };
+
+  getUserName();
+
+  // Artist setlist via setlistfm API
+  const searchArtist = async (e) => {
     e.preventDefault();
 
     const options = {
@@ -14,7 +47,7 @@ const SearchArtist = () => {
       params: { artistName: searchKey },
     };
 
-    axios
+    await axios
       .request(options)
       .then((response) => {
         let artistName = response.data.setlist[0].artist.name;
@@ -133,6 +166,7 @@ const SearchArtist = () => {
           }
         }
 
+        // Creation of setlist array
         let songsArr = [];
 
         setlistSongs.forEach((element) => songsArr.push(element.name));
@@ -141,12 +175,21 @@ const SearchArtist = () => {
           setlistEncore.forEach((element) => songsArr.push(element.name));
         }
 
-        console.log(venueName);
-        console.log(songsArr);
-        console.log(cityName)
-        console.log(eventDate)
+        // Setlist info section (to be display on page)
+        setInitialState(
+          `${artistName} at ${venueName} (${cityName}) on ${eventDate}`
+        );
 
-        setInitialState(`${artistName} at ${venueName} (${cityName}) on ${eventDate}`);
+        // Creation of array which will be passed on to SpotifyWebApi.addTracks
+        let trackArtistArr = [];
+
+        if (songsArr) {
+          songsArr.forEach((element) => {
+            trackArtistArr.push([`track:${element} artist:${artistName}`]);
+          });
+        }
+
+        setSongArr(trackArtistArr);
       })
       .catch((err) => {
         console.error(err);
@@ -161,38 +204,139 @@ const SearchArtist = () => {
     // .then(data => console.log(JSON.stringify(data)))
   };
 
-  return (
-    <div className="search">
-      <section
-        className="text-light p-5 text-center "
-        style={{ backgroundColor: "#82bf00" }}
-      >
-        <div className="container" style={{ height: "15rem" }}>
-          <div className="text-center mt-3">
-            <h1 id="title">The Set Listener</h1>
-            <p className=" my-3 mb-4">
-              Create a Spotify playlist for your favorite artist's most recent
-              show
-            </p>
+  // Once setlist array has been created, this code will run to find trackId
+  useEffect(() => {
+    let trackId = [];
 
-            <div className="d-flex justify-content-center ">
-              <form onSubmit={searchArtist}>
-                <input
-                  name="artist"
-                  id="artist"
-                  value={searchKey}
-                  type="text"
-                  onChange={(e) => setSearchKey(e.target.value)}
-                />
-                <button type={"submit"}>Search</button>
-              </form>
+    if (songArr) {
+      songArr.forEach(async (element) => {
+        await spotifyApi.searchTracks(element).then(
+          function (data) {
+            trackId.push(data.body.tracks.items[0].uri);
+          },
+          function (err) {
+            console.log("Something went wrong!", err);
+          }
+        );
+      });
+
+      setTrackIdArr(trackId);
+    }
+  }, [songArr]);
+
+  const createPlaylist = async (e) => {
+    e.preventDefault();
+    let playlistId;
+
+    // Playlist creation
+    await spotifyApi
+      .createPlaylist(`${searchKey} setlist`, {
+        description: initialState,
+        public: false,
+      })
+      .then(
+        function (data) {
+          playlistId = data.body.id;
+          console.log("Created playlist!");
+        },
+        function (err) {
+          console.log("Something went wrong!", err);
+        }
+      );
+
+    // Adding tracks to created playlist
+    await spotifyApi.addTracksToPlaylist(playlistId, trackIdArr).then(
+      function (data) {
+        console.log("Added tracks to playlist!");
+      },
+      function (err) {
+        console.log("Something went wrong!", err);
+      }
+    );
+  };
+
+  return (
+    <div className="main">
+
+      {/* Search Artist Section */}
+      <div className="search">
+        <section className="text-light p-5 text-center search">
+          <div className="container" style={{ height: "15rem" }}>
+            <div className="text-center mt-3">
+              <h1 id="title">The Set Listener</h1>
+              <p className=" my-3 mb-4">
+                Create a Spotify playlist for your favorite artist's most recent
+                show
+              </p>
+
+              <div className="d-flex justify-content-center">
+                <form onSubmit={searchArtist}>
+                  <input
+                    name="artist"
+                    id="artist"
+                    value={searchKey}
+                    type="text"
+                    onChange={(e) => setSearchKey(e.target.value)}
+                  />
+                  <button type={"submit"} style={{ fontSize: "1.1rem" }}>
+                    {" "}
+                    <BiSearch />{" "}
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-      <div>{initialState}</div>
+        </section>
+      </div>
+
+
+      {/* Spotify User Details Section || Setlist Information */}
+      {initialState ? (
+        <section
+          className="p-3 text-center artistInfo"
+          style={{
+            backgroundColor: "#f2f2f3",
+            fontSize: "1.3rem",
+            fontWeight: "bold",
+          }}
+        >
+          <div style={{ color: "#0a6312" }}>{initialState}</div>
+        </section>
+      ) : (
+        <section
+          className="p-3 text-center"
+          style={{
+            backgroundColor: "#f2f2f3",
+            fontSize: "1.3rem",
+            fontWeight: "bold",
+          }}
+        >
+          <div>
+            Hiya <img className="userImage" src={userImage} alt="userImage" />{" "}
+            {userName}!<p>Go ahead and type in your favorite artist. </p>
+          </div>
+        </section>
+      )}
+
+    {/* Create Playlist Button Section */}
+      {initialState ? (
+        <section className="p-3 text-center playlistButtonSection">
+          <Form>
+            <Button
+              type="submit"
+              className="mx-2 rounded btn playlistButton"
+              style={{ height: "40px" }}
+              onClick={createPlaylist}
+            >
+              <p className="text">SAVE THIS PLAYLIST TO SPOTIFY</p>
+            </Button>
+          </Form>
+        </section>
+      ) : (
+        <div style={{ backgroundColor: "#0a6312" }}></div>
+      )}
     </div>
   );
 };
 
-export default SearchArtist;
+export default Main;
