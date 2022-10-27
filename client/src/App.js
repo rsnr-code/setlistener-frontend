@@ -10,7 +10,7 @@ function App() {
 
   // Spotify API Authorization
   const CLIENT_ID = "345e769ef981466e9ee4f8588d86175c";
-  const REDIRECT_URI = "http://localhost:3000";
+  const REDIRECT_URI = "https://setlistener.herokuapp.com/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
   const SCOPE = "playlist-modify-private";
@@ -92,7 +92,7 @@ function App() {
           <section
             className="d-flex text-center "
             style={{
-              height: "85vh",
+              height: "90vh",
               backgroundImage: "url(concert.jpg)",
               backgroundRepeat: "no-repeat",
             }}
@@ -105,7 +105,7 @@ function App() {
                   <img
                     src="connectspotify.png"
                     alt="connect"
-                    className="connectButton mt-5"
+                    className="connectButton mt-5 formBtns"
                   />
                 </a>
               </div>

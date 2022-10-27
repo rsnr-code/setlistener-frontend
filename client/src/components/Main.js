@@ -4,8 +4,7 @@ import { BiSearch } from "react-icons/bi";
 import SpotifyWebApi from "spotify-web-api-node";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+import Popup from './Popup'
 
 const Main = () => {
   const [searchKey, setSearchKey] = useState("");
@@ -15,6 +14,7 @@ const Main = () => {
   const [songArr, setSongArr] = useState("");
   const [trackIdArr, setTrackIdArr] = useState("");
   const [setlist, setSetlist] = useState("");
+  const [alertPopup, setAlertPopup] = useState(false);
 
   // SpotifyWebApi instantiation
   let token = window.localStorage.getItem("token");
@@ -22,7 +22,7 @@ const Main = () => {
   const spotifyApi = new SpotifyWebApi({
     clientId: "345e769ef981466e9ee4f8588d86175c",
     clientSecret: "fe4e72eed7c64dc19a169126317157fe",
-    redirectUri: "http://localhost:3000",
+    redirectUri: "https://setlistener.herokuapp.com/",
   });
 
   spotifyApi.setAccessToken(token);
@@ -46,7 +46,7 @@ const Main = () => {
 
     const options = {
       method: "GET",
-      url: "http://localhost:5000/setlist",
+      url: "/setlist",
       params: { artistName: searchKey },
     };
 
@@ -200,6 +200,8 @@ const Main = () => {
         console.error(err);
       });
 
+      setAlertPopup(false)
+
     //This method wouldn't send req.query
     // fetch("http://localhost:5000/setlist", {
     //   method: 'GET',
@@ -258,6 +260,8 @@ const Main = () => {
         console.log("Something went wrong!", err);
       }
     );
+
+    setAlertPopup(true);
   };
 
   return (
@@ -269,7 +273,7 @@ const Main = () => {
           <div className="container" style={{ height: "15rem" }}>
             <div className="text-center mt-3">
               <h1 id="title">The Set Listener</h1>
-              <p className=" my-3 mb-4">
+              <p className=" my-3 mb-4 titleText">
                 Create a Spotify playlist for your favorite artist's most recent
                 show
               </p>
@@ -314,10 +318,10 @@ const Main = () => {
  
 
    
-  <div class="accordion-item" style={{borderTop: "2px solid rgb(208, 208, 208)"}}>
-          
+  <div class="accordion-title" style={{borderTop: "2px solid rgb(208, 208, 208)"}}>
+  <h2 class="accordion-header">
             <button
-              className="accordion-collapse collapsed dropdown formBtns"
+              className="accordion-collapse collapsed  formBtns"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#question-one"
@@ -326,9 +330,8 @@ const Main = () => {
             >
            View Setlist
            
-  
             </button>
-        
+            </h2>
 
            {setlist.map((song, i) => (  
            
@@ -364,9 +367,9 @@ const Main = () => {
             fontWeight: "bold",
           }}
         >
-          <div>
+          <div style={{margin: "20px"}}>
             Hiya <img className="userImage" src={userImage} alt="userImage" />{" "}
-            {userName}!<p>Go ahead and type in your favorite artist. </p>
+            {userName}!<p style={{margin: "20px"}}>Go ahead and type in your favorite artist. </p>
           </div>
         </section>
       )}
@@ -374,6 +377,8 @@ const Main = () => {
     {/* Create Playlist Button Section */}
       {initialState ? (
         <section className="p-3 text-center playlistButtonSection">
+          <Popup trigger={alertPopup}>
+          </Popup>
           <Form>
             <Button
               type="submit"
@@ -384,6 +389,7 @@ const Main = () => {
               <p className="text">SAVE THIS PLAYLIST TO SPOTIFY</p>
             </Button>
           </Form>
+
         </section>
       ) : (
         <div style={{ backgroundColor: "#0a6312" }}></div>
