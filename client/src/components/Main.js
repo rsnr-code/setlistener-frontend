@@ -317,7 +317,7 @@ const Main = () => {
   <div class="accordion-item" style={{borderTop: "2px solid rgb(208, 208, 208)"}}>
           
             <button
-              className="accordion-collapse collapsed dropdown"
+              className="accordion-collapse collapsed dropdown formBtns"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#question-one"
@@ -377,7 +377,7 @@ const Main = () => {
           <Form>
             <Button
               type="submit"
-              className="mx-2 rounded btn playlistButton"
+              className="mx-2 rounded btn playlistButton formBtns"
               style={{ height: "40px" }}
               onClick={createPlaylist}
             >

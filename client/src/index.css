@@ -63,6 +63,12 @@ html {
 
 }
 
+.formBtns:hover {
+  
+      transform: scale(1.1);
+      
+}
+
 .search {
   background: rgb(14, 136, 25);
   background: linear-gradient(
@@ -98,3 +104,4 @@ html {
 .dropdown:active {
   color: black !important;
 }
+

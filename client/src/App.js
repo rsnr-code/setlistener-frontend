@@ -72,7 +72,7 @@ function App() {
                 {/* <div className="collapse navbar-collapse" id="navmenu">
                   <ul className="navbar-nav ms-auto">
                     <li className="nav-item"> */}
-                      <button onClick={logout} className="button navbar-brand">
+                      <button onClick={logout} className="button navbar-brand formBtns">
                        
                         {" "}
                     <GiExitDoor style={{fontSize: "2.5rem"}}/>{" "}
