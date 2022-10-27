@@ -33,10 +33,6 @@ html {
 }
 
 @media screen and (max-width: 450px) {
-  .navbar-toggler {
-    width: 10px;
-    margin-right: 5px;
-  }
   .text {
     font-size: 15px;
   }
@@ -46,6 +42,10 @@ html {
   .connectButton {
     width: 80%;
   }
+  .button {
+    width: 10px;
+    
+  }
 }
 
 .playlistButtonSection {
@@ -54,12 +54,13 @@ html {
 }
 
 .playlistButton {
-  background: rgb(10, 99, 18);
-  background: linear-gradient(
-    0deg,
-    rgba(10, 99, 18, 1) 0%,
-    rgba(33, 37, 41, 1) 67%
-  );
+  background: #0a6312 !important
+ ;
+}
+
+.playlistButton:active {
+  background-color: white !important
+
 }
 
 .search {
@@ -88,4 +89,12 @@ html {
   white-space: nowrap;
   transition: 0.3s;
   font-size: 14px;
+}
+
+.dropdown {
+  color: #0a6312 !important
+}
+
+.dropdown:active {
+  color: black !important;
 }

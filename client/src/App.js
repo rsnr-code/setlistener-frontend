@@ -3,13 +3,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import Main from "./components/Main";
 import { useEffect, useState } from "react";
+import { GiExitDoor } from "react-icons/gi";
 
 function App() {
   const [token, setToken] = useState("");
 
   // Spotify API Authorization
   const CLIENT_ID = "345e769ef981466e9ee4f8588d86175c";
-  const REDIRECT_URI = "https://setlistener.herokuapp.com/";
+  const REDIRECT_URI = "http://localhost:3000";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
   const SCOPE = "playlist-modify-private";
@@ -59,24 +60,26 @@ function App() {
 
             {token ? (
               <div>
-                <button
+                {/* <button
                   className="navbar-toggler"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#navmenu"
                 >
                   <span className="navbar-toggler-icon"></span>
-                </button>
+                </button> */}
 
-                <div className="collapse navbar-collapse" id="navmenu">
+                {/* <div className="collapse navbar-collapse" id="navmenu">
                   <ul className="navbar-nav ms-auto">
-                    <li className="nav-item">
+                    <li className="nav-item"> */}
                       <button onClick={logout} className="button navbar-brand">
-                        Logout
+                       
+                        {" "}
+                    <GiExitDoor style={{fontSize: "2.5rem"}}/>{" "}
                       </button>
-                    </li>
+                    {/* </li>
                   </ul>
-                </div>
+                </div> */}
               </div>
             ) : (
               <div></div>

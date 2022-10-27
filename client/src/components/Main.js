@@ -4,6 +4,8 @@ import { BiSearch } from "react-icons/bi";
 import SpotifyWebApi from "spotify-web-api-node";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const Main = () => {
   const [searchKey, setSearchKey] = useState("");
@@ -12,6 +14,7 @@ const Main = () => {
   const [userImage, setUserImage] = useState("");
   const [songArr, setSongArr] = useState("");
   const [trackIdArr, setTrackIdArr] = useState("");
+  const [setlist, setSetlist] = useState("");
 
   // SpotifyWebApi instantiation
   let token = window.localStorage.getItem("token");
@@ -175,6 +178,8 @@ const Main = () => {
           setlistEncore.forEach((element) => songsArr.push(element.name));
         }
 
+        setSetlist(songsArr)
+
         // Setlist info section (to be display on page)
         setInitialState(
           `${artistName} at ${venueName} (${cityName}) on ${eventDate}`
@@ -284,7 +289,8 @@ const Main = () => {
                   </button>
                 </form>
               </div>
-            </div>
+        
+           </div>
           </div>
         </section>
       </div>
@@ -300,7 +306,54 @@ const Main = () => {
             fontWeight: "bold",
           }}
         >
-          <div style={{ color: "#0a6312" }}>{initialState}</div>
+          <div style={{ color: "#0a6312", marginBottom: "20px" }}>{initialState}</div>
+
+          {setlist ? 
+    <div>
+     
+ 
+
+   
+  <div class="accordion-item" style={{borderTop: "2px solid rgb(208, 208, 208)"}}>
+          
+            <button
+              className="accordion-collapse collapsed dropdown"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#question-one"
+             style={{marginTop: "15px", border: "none", fontSize: "1.3rem", }}
+             
+            >
+           View Setlist
+           
+  
+            </button>
+        
+
+           {setlist.map((song, i) => (  
+           
+           <div
+            id="question-one"
+            class="accordion-collapse collapse"
+            data-bs-parent="#questions"
+          >
+            <div class="accordion-body">
+              {song}
+            </div>
+          </div>
+        ))}  
+     
+         
+          
+        </div>
+    
+
+  </div>
+
+    
+  : <div></div>
+  
+  }
         </section>
       ) : (
         <section
