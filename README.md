@@ -1,7 +1,7 @@
 <br>
 
 <p align="center">
-     <img src="./client/public/logo.png" width="60%" height="60%">
+     <img src="./client/public/logo.png" width="55%" height="55%">
 </p>
 
 <br>
@@ -13,7 +13,7 @@ Going to a show? Not totally familiar with an artist’s catalog? Give The Set L
 
 **Live Link:** https://setlistener.herokuapp.com/
 
-A Spotify account is required. Here is a screenshot of the page you'll be taken to once logged in:
+A Spotify account is required. Here is a screenshot of the page users see once logged in:
 <p align="center">
      <img src="./client/public/screenshot.png">
 </p>
@@ -38,14 +38,14 @@ This program works, however in the future it would be great to:
 
 ## Install
 
-Install dependencies:
-
-`npm install`
-
 You'll need an API key from setlistfm, start here: https://www.setlist.fm/settings/api
 
 You'll also need to create a Spotify app, start here: https://developer.spotify.com/dashboard/applications
 This will allow you to get a Client ID and Client Secret. 
+
+Install dependencies:
+
+`npm install`
 
 Run:
 
