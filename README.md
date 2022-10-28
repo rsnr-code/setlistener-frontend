@@ -18,7 +18,7 @@ A Spotify account is required. Here is a screenshot of the page users see once l
      <img src="./client/public/screenshot.png">
 </p>
 
-## Optimizations
+## Optimizations:
 
 This program works, however in the future it would be great to:
 
