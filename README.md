@@ -1,60 +1,39 @@
 <br>
 
 <p align="center">
-     <img src="./client/public/logo.png" width="40%" height="40%">
+     <img src="./client/public/logo.png" width="50%" height="50%">
 </p>
 
 <br>
 
-[Diagnose](https://setlistener.herokuapp.com/) is a full-stack application built using Node.js as a backend JavaScript runtime environment, Express.js as a backend framework, MongoDB as a database, and EJS as a template language to generate HTML markup. 
+Going to a show? Not totally familiar with an artist’s catalog? Give The Set Listener a try. The Set Listener is a web app that will create a Spotify playlist of an artist’s most recent show. To use The Set Listener just type in the artist name, and hit the search button, you’ll be presented with a playlist of songs from that artist’s most recent show.  Hit the ‘Save this playlist to Spotify’ button and you’ll have a Spotify playlist that you can listen to on your desktop or on your mobile phone.
 
-The web application is meant for medical experts to share images of particular cases they would like to initiate discussions on with other medical experts. The website can be described in three simple steps:
-  1. Create an account. 
-  2. Post an image of your case with detailed description.
-  3. Join the discussion by commenting.
+**Live Link:** https://diagnose.up.railway.app/
 
-Currently, other features included in this application include deletion of posts, liking posts, bookmarking posts, and visiting user profiles. 
+[The Set Listener](https://setlistener.herokuapp.com/) is a full-stack application built using React for the user interface, Nodejs as the backend JavaScript runtime environment, and Express.js as the backend framework. This application functions through the use of two separate API, [setlist.fm API](https://api.setlist.fm/docs/1.0/index.html) and [Spotify Web API](https://github.com/thelinmichael/spotify-web-api-node). 
 
-**Link to project:** https://diagnose.up.railway.app/
-
-If you just want to try out the app, use these credentials email: demo@demo.com password: demodemo
-
+A Spotify account is required. Here is a screenshot of the page you'll be taken to once logged in:
 <p align="center">
-     <img src="public/assets/img/screenshot.png">
+     <img src="./client/public/screenshot.png">
 </p>
-
 
 ## Optimizations
 
 This program works, however in the future it would be great to:
 
--Add the ability to edit and delete comments.
+- Fetch more information from setlistfm API such as URL links to setlist which users can visit for more information
 
--Ability to unbookmark a post.
+- Find out whether the searched artist is coming to your area 
 
--Being able to post a profile picture and displaying it in your profile page and beside username.
-
--Ability to post more than one photo of case.
-
--Ability to share a link to a particular case.
-
--Personalize userpage more by including work experience and education. 
-
--Add a search capability to find users, cases, and comments.
-
--Provide medical students ability to make accounts (for educational purposes) and differentiate their accounts from medical experts.
-
--Add a "similar cases" section in the posts page.
-
--Ability to reply to specific comments and creating a thread for it.
+- Use the Spotify API to automatically follow the artist once playlist is created
 
 ## Lessons Learned:
 
-- Learned how the controller communicates with the database by pulling out the information I requested and how to display that information into the ejs template by passing it into the render.
+- Learned how to efficiently communicate with different APIs with my app. For example, setlistfm does not allow requests from foreign frontends. This is a security feature as setlist.fm wants to prevent developers from exposing their API key to the public through user readible code in the frontend. Due to this, I had to create a backend server that took in the parameters (searched artist name) from the frontend
 
-- Learned about the amazing populate() function which replaces the specific path in the documents with documents from other collections.
+- Learned how to use React's useState() and useEffect()
 
-- Learned about how you can format the display of your dates using moment.
+- Learned how to create a responsive React application 
 
 ## Install
 
@@ -62,16 +41,10 @@ Install dependencies:
 
 `npm install`
 
+You'll need an API key from setlistfm, start here: https://www.setlist.fm/settings/api
 
-Add an .env file:
-
-- Create a `.env` file in config folder and add the following as `key = value`
-  - PORT = 2121 (can be any port example: 3000)
-  - DB_STRING = `your database URI`
-  - CLOUD_NAME = `your cloudinary cloud name`
-  - API_KEY = `your cloudinary api key`
-  - API_SECRET = `your cloudinary api secret`
-
+You'll also need to create a Spotify app, start here: https://developer.spotify.com/dashboard/applications
+This will allow you to get a Client ID and Client Secret. 
 
 Run:
 
