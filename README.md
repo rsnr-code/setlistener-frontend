@@ -1,7 +1,7 @@
 <br>
 
 <p align="center">
-     <img src="./client/public/logo.png" width="30%" height="30%">
+     <img src="./client/public/logo.png" width="40%" height="40%">
 </p>
 
 <br>
