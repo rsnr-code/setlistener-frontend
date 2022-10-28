@@ -1,16 +1,17 @@
 <br>
 
 <p align="center">
-     <img src="./client/public/logo.png" width="50%" height="50%">
+     <img src="./client/public/logo.png" width="60%" height="60%">
 </p>
 
 <br>
 
-Going to a show? Not totally familiar with an artist’s catalog? Give The Set Listener a try. The Set Listener is a web app that will create a Spotify playlist of an artist’s most recent show. To use The Set Listener just type in the artist name, and hit the search button, you’ll be presented with a playlist of songs from that artist’s most recent show.  Hit the ‘Save this playlist to Spotify’ button and you’ll have a Spotify playlist that you can listen to on your desktop or on your mobile phone.
-
-**Live Link:** https://diagnose.up.railway.app/
 
 [The Set Listener](https://setlistener.herokuapp.com/) is a full-stack application built using React for the user interface, Nodejs as the backend JavaScript runtime environment, and Express.js as the backend framework. This application functions through the use of two separate API, [setlist.fm API](https://api.setlist.fm/docs/1.0/index.html) and [Spotify Web API](https://github.com/thelinmichael/spotify-web-api-node). 
+
+Going to a show? Not totally familiar with an artist’s catalog? Give The Set Listener a try. The Set Listener is a web app that will create a Spotify playlist of an artist’s most recent show. To use The Set Listener just type in the artist name, and hit the search button, you’ll be presented with a playlist of songs from that artist’s most recent show.  Hit the ‘Save this playlist to Spotify’ button and you’ll have a Spotify playlist that you can listen to on your desktop or on your mobile phone.
+
+**Live Link:** https://setlistener.herokuapp.com/
 
 A Spotify account is required. Here is a screenshot of the page you'll be taken to once logged in:
 <p align="center">
