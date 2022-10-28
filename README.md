@@ -41,6 +41,7 @@ This program works, however in the future it would be great to:
 You'll need an API key from setlistfm, start here: https://www.setlist.fm/settings/api
 
 You'll also need to create a Spotify app, start here: https://developer.spotify.com/dashboard/applications
+
 This will allow you to get a Client ID and Client Secret. 
 
 Install dependencies:

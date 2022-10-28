@@ -37,17 +37,24 @@ html {
     font-size: 15px;
   }
   .userImage {
-    width: 10%;
+    width: 15%;
   }
   .connectButton {
     width: 80%;
   }
-  .button {
-    width: 10px;
-    
-  }
+.headerTop {
+  font-size: 1rem !important;
+}
+
+.logo{
+  width: 1.4rem !important;
+}
+.logoutBtn{
+  width: 1.7rem !important;
+}
   #title{
     visibility: hidden;
+    height: 0;
   }
   .titleText {
     font-size: 1.5rem;

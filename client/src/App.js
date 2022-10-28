@@ -60,26 +60,16 @@ function App() {
 
             {token ? (
               <div>
-                {/* <button
-                  className="navbar-toggler"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#navmenu"
+                <button
+                  onClick={logout}
+                  className="button navbar-brand formBtns"
                 >
-                  <span className="navbar-toggler-icon"></span>
-                </button> */}
-
-                {/* <div className="collapse navbar-collapse" id="navmenu">
-                  <ul className="navbar-nav ms-auto">
-                    <li className="nav-item"> */}
-                      <button onClick={logout} className="button navbar-brand formBtns">
-                       
-                        {" "}
-                    <GiExitDoor style={{fontSize: "2.5rem"}}/>{" "}
-                      </button>
-                    {/* </li>
-                  </ul>
-                </div> */}
+                  {" "}
+                  <GiExitDoor
+                    className="logoutBtn"
+                    style={{ fontSize: "2.5rem" }}
+                  />{" "}
+                </button>
               </div>
             ) : (
               <div></div>

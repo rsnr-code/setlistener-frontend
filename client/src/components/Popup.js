@@ -8,8 +8,6 @@ const Popup = (props) => {
         <p style={{fontSize: "1rem"}}>
           Playlist created! Open up your Spotify and give it a listen!
         </p>
-      
-        
       </Alert>
     ) : ""
         

@@ -4,7 +4,7 @@ import { BiSearch } from "react-icons/bi";
 import SpotifyWebApi from "spotify-web-api-node";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Popup from './Popup'
+import Popup from "./Popup";
 
 const Main = () => {
   const [searchKey, setSearchKey] = useState("");
@@ -178,7 +178,7 @@ const Main = () => {
           setlistEncore.forEach((element) => songsArr.push(element.name));
         }
 
-        setSetlist(songsArr)
+        setSetlist(songsArr);
 
         // Setlist info section (to be display on page)
         setInitialState(
@@ -200,7 +200,7 @@ const Main = () => {
         console.error(err);
       });
 
-      setAlertPopup(false)
+    setAlertPopup(false);
 
     //This method wouldn't send req.query
     // fetch("http://localhost:5000/setlist", {
@@ -266,7 +266,7 @@ const Main = () => {
 
   return (
     <div className="main">
-
+      
       {/* Search Artist Section */}
       <div className="search">
         <section className="text-light p-5 text-center search">
@@ -293,12 +293,10 @@ const Main = () => {
                   </button>
                 </form>
               </div>
-        
-           </div>
+            </div>
           </div>
         </section>
       </div>
-
 
       {/* Spotify User Details Section || Setlist Information */}
       {initialState ? (
@@ -310,53 +308,46 @@ const Main = () => {
             fontWeight: "bold",
           }}
         >
-          <div style={{ color: "#0a6312", marginBottom: "20px" }}>{initialState}</div>
-
-          {setlist ? 
-    <div>
-     
- 
-
-   
-  <div class="accordion-title" style={{borderTop: "2px solid rgb(208, 208, 208)"}}>
-  <h2 class="accordion-header">
-            <button
-              className="accordion-collapse collapsed  formBtns"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#question-one"
-             style={{marginTop: "15px", border: "none", fontSize: "1.3rem", }}
-             
-            >
-           View Setlist
-           
-            </button>
-            </h2>
-
-           {setlist.map((song, i) => (  
-           
-           <div
-            id="question-one"
-            class="accordion-collapse collapse"
-            data-bs-parent="#questions"
-          >
-            <div class="accordion-body">
-              {song}
-            </div>
+          <div style={{ color: "#0a6312", marginBottom: "20px" }}>
+            {initialState}
           </div>
-        ))}  
-     
-         
-          
-        </div>
-    
 
-  </div>
+          {setlist ? (
+            <div>
+              <div
+                className="accordion-title"
+                style={{ borderTop: "2px solid rgb(208, 208, 208)" }}
+              >
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-collapse collapsed  formBtns"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#question-one"
+                    style={{
+                      marginTop: "15px",
+                      border: "none",
+                      fontSize: "1.3rem",
+                    }}
+                  >
+                    View Setlist
+                  </button>
+                </h2>
 
-    
-  : <div></div>
-  
-  }
+                {setlist.map((song, i) => (
+                  <div
+                    id="question-one"
+                    className="accordion-collapse collapse"
+                    data-bs-parent="#questions"
+                  >
+                    <div className="accordion-body">{song}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div></div>
+          )}
         </section>
       ) : (
         <section
@@ -367,18 +358,24 @@ const Main = () => {
             fontWeight: "bold",
           }}
         >
-          <div style={{margin: "20px"}}>
-            Hiya <img className="userImage" src={userImage} alt="userImage" />{" "}
-            {userName}!<p style={{margin: "20px"}}>Go ahead and type in your favorite artist. </p>
+          <div style={{ margin: "20px" }}>
+            Welcome,&nbsp;{" "}
+            <img className="userImage" src={userImage} alt="userImage" /> &nbsp;
+            {userName}!
+            <p style={{ marginTop: "20px", fontSize: "1rem" }}>
+              Setlist will be displayed here
+            </p>
+            <p style={{ fontSize: "1rem" }}>
+              Go ahead and type a name into the search bar
+            </p>
           </div>
         </section>
       )}
 
-    {/* Create Playlist Button Section */}
+      {/* Create Playlist Button Section */}
       {initialState ? (
         <section className="p-3 text-center playlistButtonSection">
-          <Popup trigger={alertPopup}>
-          </Popup>
+          <Popup trigger={alertPopup}></Popup>
           <Form>
             <Button
               type="submit"
@@ -389,7 +386,6 @@ const Main = () => {
               <p className="text">SAVE THIS PLAYLIST TO SPOTIFY</p>
             </Button>
           </Form>
-
         </section>
       ) : (
         <div style={{ backgroundColor: "#0a6312" }}></div>
