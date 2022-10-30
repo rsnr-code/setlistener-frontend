@@ -46,6 +46,11 @@ html {
   font-size:1.5vw;
 }
 
+.greetingAlert {
+  max-width: 40vw;
+}
+
+
 @media screen and (max-width: 450px) {
   .text {
     font-size: 15px;
@@ -90,6 +95,12 @@ html {
 
   font-size: 2.5vw;
  }
+ .greetingAlert {
+  max-width: 80vw;
+}
+.searchForm {
+  margin-top: 30px;
+}
 }
 
 .playlistButtonSection {

@@ -23,24 +23,23 @@ const Main = () => {
 
   //Spotify username and user image 
   useEffect(() => {
-    // 👇️ only runs once
-    console.log('display name + image retrieved successfully');
-    
+    const getUserName = async () => {
+      const data = await axios.get("https://api.spotify.com/v1/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUserImage(data.data.images[0].url);
+      setUserName(data.data.display_name);
+    };
     getUserName();
+    console.log('display name + image retrieved successfully');
   }, []);
 
-  const getUserName = async () => {
-    const data = await axios.get("https://api.spotify.com/v1/me", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    setUserImage(data.data.images[0].url);
-    setUserName(data.data.display_name);
-  };
+ 
 
   // Artist setlist via setlistfm API
-  const searchArtist = async (e) => {
+  const searchArtist = (e) => {
     e.preventDefault();
 
     const options = {
@@ -49,13 +48,14 @@ const Main = () => {
       params: { artistName: searchKey },
     };
 
-    await axios
+     axios
       .request(options)
       .then((response) => {
+       
         let artistName = response.data.setlist[0].artist.name;
 
         let setlistSongs, setlistEncore, venueName, cityName, eventDate;
-
+        
         if (
           response.data.setlist[0].sets.set.length !== 0 &&
           response.data.setlist[0].sets.set[0].song.length > 4
@@ -198,7 +198,7 @@ const Main = () => {
       .catch((err) => {
         console.error(err);
       });
-
+    
     setAlertPopup(false);
 
     //This method wouldn't send req.query
@@ -277,7 +277,7 @@ const Main = () => {
                 show
               </p>
 
-              <div className="d-flex justify-content-center">
+              <div className="d-flex justify-content-center searchForm">
                 <form onSubmit={searchArtist}>
                   <input
                     name="artist"
@@ -357,16 +357,19 @@ const Main = () => {
             fontWeight: "bold",
           }}
         >
-          <div style={{ margin: "20px" }}>
+          <div style={{ margin: "10px" }}>
             Welcome,&nbsp;{" "}
             <img className="userImage" src={userImage} alt="userImage" /> &nbsp;
             {userName}!
-            <p style={{ marginTop: "20px", fontSize: "1rem" }}>
+            <div className="alert alert-secondary mt-3 greetingAlert" style={{margin: "0 auto"}}>
+              <p style={{ marginTop: "10px", fontSize: "1rem" }}>
               Setlist will be displayed here
             </p>
             <p style={{ fontSize: "1rem" }}>
               Go ahead and type in a name into the search bar
-            </p>
+            </p> 
+            </div>
+           
           </div>
         </section>
       )}
