@@ -27,7 +27,23 @@ const Main = () => {
 
   spotifyApi.setAccessToken(token);
 
+  //Old code:
   // Spotify username and user image
+  // const getUserName = async (e) => {
+  //   const data = await axios.get("https://api.spotify.com/v1/me", {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   });
+  //   setUserImage(data.data.images[0].url);
+  //   setUserName(data.data.display_name);
+  // };
+
+  // getUserName();
+
+  //New code:
+  //Spotify username and user image 
+
   const getUserName = async (e) => {
     const data = await axios.get("https://api.spotify.com/v1/me", {
       headers: {
@@ -38,7 +54,12 @@ const Main = () => {
     setUserName(data.data.display_name);
   };
 
-  getUserName();
+  useEffect(() => {
+    // 👇️ only runs once
+    console.log('display name + image retrieved successfully');
+    
+    getUserName();
+  });
 
   // Artist setlist via setlistfm API
   const searchArtist = async (e) => {
