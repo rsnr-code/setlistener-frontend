@@ -18,13 +18,15 @@ A Spotify account is required. Here is a screenshot of the page users see once l
      <img src="./client/public/screenshot.png">
 </p>
 
-## How to use:
+## Demo:
 
 If you would like to test it out, use these credentials:
+
 Spotify account email: setlistenerdemo@gmail.com
+
 Spotify account password: Demo1234
 
-[! [Demo](https://j.gifs.com/k2LDnX.gif)](https://www.youtube.com/watch?v=8VQlz9oh0B8)
+[![Demo](https://j.gifs.com/k2LDnX.gif)](https://www.youtube.com/watch?v=8VQlz9oh0B8)
 
 ## Optimizations:
 
