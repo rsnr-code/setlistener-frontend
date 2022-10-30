@@ -12,7 +12,7 @@ function App() {
 
   // Spotify API Authorization
   const CLIENT_ID = "345e769ef981466e9ee4f8588d86175c";
-  const REDIRECT_URI = "http://localhost:3000";
+  const REDIRECT_URI = "https://setlistener.herokuapp.com/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
   const SCOPE = "playlist-modify-private";
@@ -40,8 +40,6 @@ function App() {
     setToken("");
     window.localStorage.removeItem("token");
   };
-
- 
 
   return (
     <Router>
@@ -79,7 +77,7 @@ function App() {
               <div>
                 <button
                   onClick={() => {
-                    setInfo(true)
+                    setInfo(true);
                   }}
                   className="button navbar-brand formBtns"
                 >
@@ -90,7 +88,7 @@ function App() {
                   />{" "}
                 </button>
               </div>
-              )}
+            )}
           </div>
         </nav>
 
@@ -104,41 +102,52 @@ function App() {
               backgroundRepeat: "no-repeat",
             }}
           >
-            {!info ? 
-            <div className="container d-flex ">
-              <div className="text-center mt-5 flex-grow-1">
-                <a
-                  href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}
-                >
-                  <img
-                    src="connectspotify.png"
-                    alt="connect"
-                    className="connectButton mt-5 formBtns"
-                  />
-                </a>
+            {!info ? (
+              <div className="container d-flex ">
+                <div className="text-center mt-5 flex-grow-1">
+                  <a
+                    href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}
+                  >
+                    <img
+                      src="connectspotify.png"
+                      alt="connect"
+                      className="connectButton mt-5 formBtns"
+                    />
+                  </a>
+                </div>
               </div>
-            </div>
-          :  <div className="container d-flex justify-content-center">
-          <div className="text-center mt-5 infoBox">
-        
-            <p className="infoText mt-1">Going to a show? Not totally familiar with an artist’s catalog? Give The Set Listener a try. The Set Listener is a web app that will create a Spotify playlist of an artist’s most recent show. </p>
-            <p className="infoText">To use The Set Listener just type in the artist name, and hit the search button, you’ll be presented with a playlist of songs from that artist’s most recent show. Hit the ‘Save this playlist to Spotify’ button and you’ll have a Spotify playlist that you can listen to on your desktop or on your mobile phone.</p>
-            <button
-                  onClick={() => {
-                    setInfo(false)
-                  }}
-                  className="button navbar-brand formBtns"
-                >
-                  {" "}
-                  <RiArrowGoBackLine
-                    className="infoBtn"
-                    style={{ fontSize: "1.5rem" }}
-                  />{" "}
-                </button>
-            
-            </div></div>
-          
-          }
+            ) : (
+              <div className="container d-flex justify-content-center">
+                <div className="text-center mt-5 infoBox">
+                  <p className="infoText mt-1">
+                    Going to a show? Not totally familiar with an artist’s
+                    catalog? Give The Set Listener a try. The Set Listener is a
+                    web app that will create a Spotify playlist of an artist’s
+                    most recent show.{" "}
+                  </p>
+                  <p className="infoText">
+                    To use The Set Listener just type in the artist name, and
+                    hit the search button, you’ll be presented with a playlist
+                    of songs from that artist’s most recent show. Hit the ‘Save
+                    this playlist to Spotify’ button and you’ll have a Spotify
+                    playlist that you can listen to on your desktop or on your
+                    mobile phone.
+                  </p>
+                  <button
+                    onClick={() => {
+                      setInfo(false);
+                    }}
+                    className="button navbar-brand formBtns"
+                  >
+                    {" "}
+                    <RiArrowGoBackLine
+                      className="infoBtn"
+                      style={{ fontSize: "1.5rem" }}
+                    />{" "}
+                  </button>
+                </div>
+              </div>
+            )}
           </section>
         ) : (
           <div></div>

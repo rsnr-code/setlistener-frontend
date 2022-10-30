@@ -21,7 +21,7 @@ const Main = () => {
   const spotifyApi = new SpotifyWebApi();
   spotifyApi.setAccessToken(token);
 
-  //Spotify username and user image 
+  //Spotify username and user image
   useEffect(() => {
     const getUserName = async () => {
       const data = await axios.get("https://api.spotify.com/v1/me", {
@@ -33,10 +33,8 @@ const Main = () => {
       setUserName(data.data.display_name);
     };
     getUserName();
-    console.log('display name + image retrieved successfully');
+    console.log("display name + image retrieved successfully");
   }, []);
-
- 
 
   // Artist setlist via setlistfm API
   const searchArtist = (e) => {
@@ -44,18 +42,17 @@ const Main = () => {
 
     const options = {
       method: "GET",
-      url: "http://localhost:5000/setlist",
+      url: "/setlist",
       params: { artistName: searchKey },
     };
 
-     axios
+    axios
       .request(options)
       .then((response) => {
-       
         let artistName = response.data.setlist[0].artist.name;
 
         let setlistSongs, setlistEncore, venueName, cityName, eventDate;
-        
+
         if (
           response.data.setlist[0].sets.set.length !== 0 &&
           response.data.setlist[0].sets.set[0].song.length > 4
@@ -198,7 +195,7 @@ const Main = () => {
       .catch((err) => {
         console.error(err);
       });
-    
+
     setAlertPopup(false);
 
     //This method wouldn't send req.query
@@ -230,6 +227,7 @@ const Main = () => {
     }
   }, [songArr]);
 
+  // Create playlist button
   const createPlaylist = async (e) => {
     e.preventDefault();
     let playlistId;
@@ -265,7 +263,6 @@ const Main = () => {
 
   return (
     <div className="main">
-      
       {/* Search Artist Section */}
       <div className="search">
         <section className="text-light p-5 text-center search">
@@ -357,19 +354,21 @@ const Main = () => {
             fontWeight: "bold",
           }}
         >
-          <div style={{ margin: "10px" }}>
+          <div style={{ marginTop: "10px" }}>
             Welcome,&nbsp;{" "}
             <img className="userImage" src={userImage} alt="userImage" /> &nbsp;
             {userName}!
-            <div className="alert alert-secondary mt-3 greetingAlert" style={{margin: "0 auto"}}>
-              <p style={{ marginTop: "10px", fontSize: "1rem" }}>
-              Setlist will be displayed here
-            </p>
-            <p style={{ fontSize: "1rem" }}>
-              Go ahead and type in a name into the search bar
-            </p> 
+            <div
+              className="alert alert-secondary mt-3 greetingAlert"
+              style={{ margin: "0 auto" }}
+            >
+              <p style={{ marginTop: "5px", fontSize: "1rem" }}>
+                Setlist will be displayed here
+              </p>
+              <p style={{ fontSize: "1rem", marginBottom: "5px" }}>
+                Go ahead and type in a name into the search bar
+              </p>
             </div>
-           
           </div>
         </section>
       )}
