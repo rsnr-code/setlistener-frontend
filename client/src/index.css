@@ -60,7 +60,10 @@ html {
     font-size: 1.5rem;
     margin-top: 0
   }
- 
+ .success-alert {
+  width: 75% !important;
+  height: 75% !important;
+ }
 }
 
 .playlistButtonSection {

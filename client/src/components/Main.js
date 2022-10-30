@@ -18,33 +18,18 @@ const Main = () => {
 
   // SpotifyWebApi instantiation
   let token = window.localStorage.getItem("token");
-
-  const spotifyApi = new SpotifyWebApi({
-    clientId: "345e769ef981466e9ee4f8588d86175c",
-    clientSecret: "fe4e72eed7c64dc19a169126317157fe",
-    redirectUri: "https://setlistener.herokuapp.com/",
-  });
-
+  const spotifyApi = new SpotifyWebApi();
   spotifyApi.setAccessToken(token);
 
-  //Old code:
-  // Spotify username and user image
-  // const getUserName = async (e) => {
-  //   const data = await axios.get("https://api.spotify.com/v1/me", {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
-  //   setUserImage(data.data.images[0].url);
-  //   setUserName(data.data.display_name);
-  // };
-
-  // getUserName();
-
-  //New code:
   //Spotify username and user image 
+  useEffect(() => {
+    // 👇️ only runs once
+    console.log('display name + image retrieved successfully');
+    
+    getUserName();
+  }, []);
 
-  const getUserName = async (e) => {
+  const getUserName = async () => {
     const data = await axios.get("https://api.spotify.com/v1/me", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -54,20 +39,13 @@ const Main = () => {
     setUserName(data.data.display_name);
   };
 
-  useEffect(() => {
-    // 👇️ only runs once
-    console.log('display name + image retrieved successfully');
-    
-    getUserName();
-  });
-
   // Artist setlist via setlistfm API
   const searchArtist = async (e) => {
     e.preventDefault();
 
     const options = {
       method: "GET",
-      url: "/setlist",
+      url: "http://localhost:5000/setlist",
       params: { artistName: searchKey },
     };
 
@@ -387,7 +365,7 @@ const Main = () => {
               Setlist will be displayed here
             </p>
             <p style={{ fontSize: "1rem" }}>
-              Go ahead and type a name into the search bar
+              Go ahead and type in a name into the search bar
             </p>
           </div>
         </section>
