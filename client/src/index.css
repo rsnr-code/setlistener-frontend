@@ -32,6 +32,19 @@ html {
   width: 35%;
 }
 
+.infoBox {
+  background: rgba(241, 244, 241, 0.742);    /*  10% opaque green */ 
+  width: 60%;
+  height: 55%;
+  padding: 20px;
+  border: 5px white solid
+
+}
+
+.infoText {
+  font-size:1.5vw;
+}
+
 @media screen and (max-width: 450px) {
   .text {
     font-size: 15px;
@@ -52,6 +65,9 @@ html {
 .logoutBtn{
   width: 1.7rem !important;
 }
+.infoBtn {
+  width: 1.1rem;
+}
   #title{
     visibility: hidden;
     height: 0;
@@ -63,6 +79,13 @@ html {
  .success-alert {
   width: 75% !important;
   height: 75% !important;
+ }
+ .infoBox {
+  height: 45%;
+  width: 70% 
+ }
+ .infoText{
+  font-size: 2.5vw
  }
 }
 
@@ -154,3 +177,4 @@ html {
   top: 16px;
   right: 16px;
 }
+
