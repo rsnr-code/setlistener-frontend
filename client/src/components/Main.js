@@ -258,6 +258,18 @@ const Main = () => {
       }
     );
 
+      // for (let i = 0; i < trackIdArr; i++){
+      //   let trackId = trackIdArr[i];
+      //   await spotifyApi.addTracksToPlaylist(playlistId, trackId, {
+      //     position: i
+      //   }).then(function(data){
+      //     console.log(`Added ${trackId} to ${playlistId} successfully`)
+      //   },
+      //   function{(err){
+      //     console.log("Something went wrong!", err)
+      //   }})
+      // }
+
     setAlertPopup(true);
   };
 
